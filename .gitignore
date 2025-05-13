@@ -1,3 +1,15 @@
+# Ignore environment file
+.env
+
+# Byte-compiled / cache files
+__pycache__/
+*.py[cod]
+
+# FAISS index (optional – only if you want Azure to rebuild it)
+faiss_store/
+
+# Jupyter checkpoints
+.ipynb_checkpoints/
 
 # Ignore environment file
 .env
