@@ -1,0 +1,36 @@
+
+# Ignore environment file
+.env
+
+# Byte‐compiled / cache files
+__pycache__/
+*.py[cod]
+*.so
+
+# FAISS index (optional – only if you want Azure to rebuild it)
+faiss_store/
+
+# Jupyter checkpoints
+.ipynb_checkpoints/
+__pycache__/
+*.py[cod]
+.env
+# You already have:
+__pycache__/
+*.py[cod]
+.env
+
+# Next, add these:
+
+# 2) Virtual-env folders (if you ever create one)
+venv/
+env/
+
+# 4) Your raw PDFs and extracted text outputs
+raw/
+processed/
+
+# 5) Editor & notebook clutter
+.vscode/
+.ipynb_checkpoints/
+.DS_Store
