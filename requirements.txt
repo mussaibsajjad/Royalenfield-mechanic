@@ -1,7 +1,6 @@
 streamlit
 python-dotenv
-langchain
-langchain-community
-faiss-cpu
-sentence-transformers
 requests
+faiss-cpu
+langchain-core>=0.3.59
+openai>=1.0.0

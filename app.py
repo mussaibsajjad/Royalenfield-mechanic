@@ -1,38 +1,31 @@
 # app.py
-
 import streamlit as st
-from rag import rag_answer   # your helper function
+from dotenv import load_dotenv
+from rag import rag_answer  # our new helper
 
-# ─── Sidebar: tweak number of chunks ─────────────────────────────────────────
+# load .env so streamlit picks up your AZURE_* vars
+load_dotenv()
+
+st.set_page_config(
+    page_title="Royal Enfield Mechanic Assistant",
+    layout="wide",
+)
+
+st.title("🔧 Royal Enfield Mechanic Assistant")
 st.sidebar.header("Settings")
-k = st.sidebar.slider("Context chunks (k)", min_value=1, max_value=10, value=4)
+k = st.sidebar.slider("Number of context chunks (k)", min_value=1, max_value=8, value=4)
 
-# ─── Session state for history ───────────────────────────────────────────────
 if "history" not in st.session_state:
-    st.session_state.history = []  # list of (role, message)
+    st.session_state.history = []
 
-# ─── Page header & input ────────────────────────────────────────────────────
-st.title("🛠 Royal Enfield Mechanics Assistant")
-query = st.text_input("Ask your question:")
+prompt = st.text_input("Ask a question about your Royal Enfield…")
+if st.button("🔍 Ask"):
+    if prompt:
+        with st.spinner("Thinking…"):
+            answer = rag_answer(prompt, k=k)
+        st.session_state.history.append((prompt, answer))
 
-if st.button("Send") and query:
-    # add user question
-    st.session_state.history.append(("You", query))
-    # get the answer
-    with st.spinner("Thinking..."):
-        answer = rag_answer(query, k=k)
-    # add assistant reply
-    st.session_state.history.append(("Assistant", answer))
-    # clear input box
-    st.session_state.query = ""
-
-# ─── Display the conversation ───────────────────────────────────────────────
-for role, msg in st.session_state.history:
-    if role == "You":
-        st.markdown(f"**You:** {msg}")
-    else:
-        st.markdown(f"**Assistant:** {msg}")
-
-# ─── Footer ────────────────────────────────────────────────────────────────
-st.markdown("---")
-st.markdown("🔧 Powered by FAISS + Azure GPT-4o")
+st.markdown("## Conversation")
+for q, a in st.session_state.history[::-1]:
+    st.markdown(f"<b>You:</b> {q}", unsafe_allow_html=True)
+    st.markdown(f"<b>Assistant:</b> {a}", unsafe_allow_html=True)
