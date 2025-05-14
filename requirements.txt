@@ -1,6 +1,7 @@
-streamlit
-python-dotenv
-requests
-faiss-cpu
-langchain-core>=0.3.59
-openai>=1.0.0
+streamlit==1.45.1
+python-dotenv==1.1.0
+requests==2.32.3
+langchain==0.3.25
+langchain-community==0.3.24
+faiss-cpu==1.11.0
+sentence-transformers==2.2.2

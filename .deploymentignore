@@ -1,0 +1,8 @@
+venv/
+raw/
+faiss_store/
+__pycache__/
+*.py[cod]
+.env
+Dockerfile
+
